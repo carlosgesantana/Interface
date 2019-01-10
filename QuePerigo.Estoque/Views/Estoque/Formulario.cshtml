@@ -1,0 +1,80 @@
+﻿@model Produto
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <form action="Cadastrar" method="post">
+
+                    <div class="form-group">
+                        <label for="IdBling">Id Bling</label>
+                        <input id="IdBling" class="form-control" type="text" name="Produto.IdBling" value="@Model.IdBling"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="DescricaoCurta">Descrição Curta</label>
+                        <input id="DescricaoCurta" class="form-control" type="text" name="Produto.DescricaoCurta" value="@Model.DescricaoCurta"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="DescricaoCompleta">Descrição Completa</label>
+                        <input id="DescricaoCompleta" class="form-control" type="text" name="Produto.DescricaoCompleta" value="@Model.DescricaoCompleta"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Fornecedor">Fornecedor</label>
+                        <select class="form-control" name="Produto.Fornecedor.Id">
+
+                            <option value="0" selected="selected"></option>
+
+                            @foreach (Fornecedor fornecedor in ViewBag.Fornecedores)
+                            {
+                                <option value="@fornecedor.Id" selected="@fornecedor.Equals(Model.Fornecedor)">@fornecedor.Nome</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Quantidade">Quantidade</label>
+                        <input id="Quantidade" class="form-control" type="number" name="Produto.Quantidade" value="" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Custo">Custo</label>
+                        <input id="Custo" class="form-control" type="text" name="Produto.Custo" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="CodigoBarraEmbalagem">Código de Barra da Embalagem</label>
+                        <input id="CodigoBarraEmbalagem" class="form-control" type="text" name="Produto.CodigoBarraEmbalagem" value="" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="CodigoBarra">Código de Barra</label>
+                        <input id="CodigoBarra" class="form-control" type="text" name="Produto.CodigoBarra" value="" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="NCM">Class. Fiscal</label>
+                        <input id="NCM" class="form-control" type="text" name="Produto.NCM" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="IsNacional">Produto Nacional?</label>
+                        <input id="IsNacional" type="checkbox" name="Produto.IsNacional" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Observacoes">Observações</label>
+                        <textarea class="form-control" id="Observacoes" type="text" name="Produto.Observacoes" />
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit">Cadastrar</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

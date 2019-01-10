@@ -1,0 +1,76 @@
+﻿.avatar {
+    margin: 0;
+    width: 25px;
+    height: 25px;
+}
+
+.brand {
+    height: 32px;
+    width: 32px;
+}
+
+.panel-home {
+    background-color: #fdfdfd;
+}
+
+body {
+    background-color: #e68a00;
+}
+
+.divider {
+    height: 1px;
+    width: 100%;
+    display: block; /* for use on default inline elements like span */
+    margin: 15px 0;
+    overflow: hidden;
+    background-color: #c8c8c8;
+}
+
+.panel-default > .panel-overview {
+    background-color: #838383;
+    color: #eeeeee;
+    /*background-color: #ffac59;*/
+}
+
+.panel-collapse > .panel-body {
+    background-color: #f8f8f8;
+}
+
+.loader {
+    position: relative;
+    text-align: center;
+    margin: 15px auto 35px auto;
+    z-index: 9999;
+    display: block;
+    width: 80px;
+    height: 80px;
+    border: 10px solid rgba(0, 0, 0, .3);
+    border-radius: 50%;
+    border-top-color: #000;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+
+/** MODAL STYLING **/
+
+.modal-content {
+    border-radius: 0px;
+    box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+}
+
+.modal-backdrop.show {
+    opacity: 0.75;
+}

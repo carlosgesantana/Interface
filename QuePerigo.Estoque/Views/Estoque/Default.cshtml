@@ -1,0 +1,35 @@
+﻿<div class="panel-heading">
+    <h2>Estoque<br /><small>Gerencie seu estoque aqui..</small></h2>
+</div>
+
+<div class="form-group form-inline">
+    <div class="row">
+        <div class="col-md-9">
+            <button type="button" id="btn-add-produto" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus-sign"> Novo</span>
+            </button>
+        </div>
+        <div class="col-md-3">
+            <input id="txt-pesquisa" type="text" class="form-control" placeholder="Pesquisar">
+            <button type="button" id="btn-pesquisar-produto" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<div id="div-produto">
+    
+</div>
+
+@section Scripts
+{
+
+<script>
+    var urlFormulario = "@Url.Action("Formulario")";
+</script>
+<script src="~/js/estoque.js"></script>
+
+}

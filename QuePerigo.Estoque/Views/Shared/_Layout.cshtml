@@ -1,0 +1,104 @@
+﻿@{
+    ViewData["Title"] = "Que Perigo";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+    <environment include="Development, Production">
+        <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><img class="brand" alt="Que Perigo" src="~/images/logo.png"></a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a asp-controller="Home" asp-action="Index">Home<span class="sr-only">página atual</span></a></li>
+                        <li><a asp-controller="Estoque" asp-action="Default">Estoque</a></li>
+                        <li><a asp-controller="Relatorio" asp-action="Visualizar">Relatório</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Pesquisar">
+                        </div>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img class="avatar" src="~/images/delete.png" alt="Foto do Perfil" />
+                                <strong>Luiz Gustavo</strong>
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Meu Perfil  <span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Sair</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="container">
+                <div class="panel panel-default">
+                    <div class="panel-body panel-home">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <nav class="navbar navbar-fixed-bottom navbar-inverse">
+            <div class="container-fluid">
+                <p class="navbar-text navbar-left">&copy; 2018 - Null Web Solutions</p>
+            </div>
+        </nav>
+    </footer>
+
+    <div class="modal fade" id="modal-loading" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <div class="loader"></div>
+                    <div clas="loader-txt">
+                        <p>Carregando..</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <environment include="Development, Production">
+        <script src="~/lib/jquery/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
