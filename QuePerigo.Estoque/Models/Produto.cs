@@ -8,7 +8,7 @@ namespace QuePerigo.Estoque.Models
     public class Produto
     {
         public string IdBling { get; set; }
-        public int Id { get; set; }
+        public string Id { get; set; }
         public Fornecedor Fornecedor { get; set; }
         public string DescricaoCurta { get; set; }
         public string DescricaoCompleta { get; set; }

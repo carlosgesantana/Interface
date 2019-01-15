@@ -13,6 +13,10 @@
     background-color: #fdfdfd;
 }
 
+th {
+    padding: 2%;
+}
+
 body {
     background-color: #e68a00;
 }

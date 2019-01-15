@@ -13,4 +13,16 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\QuePerigo.Dados\QuePerigo.Dados.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Reference Include="Null.Token">
+      <HintPath>..\..\..\..\..\..\..\Documents\Visual Studio 2017\Projects\Null.Token.Conexao\Null.Token.Conexao\bin\Release\netcoreapp2.2\Null.Token.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

@@ -3,12 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using QuePerigo.Dados;
 using QuePerigo.Estoque.Models;
+using QuePerigo.Repositorio;
 
 namespace QuePerigo.Estoque.Controllers
 {
     public class EstoqueController : Controller
     {
+        public IProdutoRepositorio ProdutoRepositorio { get; }
+
+        public EstoqueController(IProdutoRepositorio produtoRepositorio)
+        {
+            this.ProdutoRepositorio = produtoRepositorio;
+        }
+
         public IActionResult Default()
         {
             return View();
@@ -29,10 +39,8 @@ namespace QuePerigo.Estoque.Controllers
         }
 
         [HttpPost]
-        public IActionResult Formulario(string descricaoCurta)
+        public IActionResult Formulario(Produto produto)
         {
-            Produto produto = new Produto() { DescricaoCurta = descricaoCurta, Fornecedor = new Fornecedor() { Id = 2, Nome = "Circuit" } };
-
             IList<Fornecedor> fornecedores = new List<Fornecedor>();
 
             fornecedores.Add(new Fornecedor() { Id = 1, Nome = "IMS" });
@@ -42,6 +50,17 @@ namespace QuePerigo.Estoque.Controllers
 
             return PartialView(produto);
         }
+
+        public JsonResult Resultados(string descricaoCurta)
+        {
+            List<Produto> produtos = ProdutoRepositorio.GetProdutos(descricaoCurta);
+            
+            JsonResult jsonResult = Json(produtos);
+
+            return jsonResult;
+        }
+
+
 
         public IActionResult Cadastrar(Produto produto)
         {

@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Null.Token;
+using QuePerigo.Repositorio;
 
 namespace QuePerigo.Estoque
 {
@@ -34,11 +36,13 @@ namespace QuePerigo.Estoque
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            //string connectionStringWithToken = Configuration.GetConnectionString("Default");
+            string connectionStringWithToken = Configuration.GetConnectionString("Default");
+            string connectionString = Conexao.GetConnectionString(connectionStringWithToken);
 
-            //connectionStringWithToken = Conexao.GetConnectionString(connectionStringWithToken);
+            services.AddSingleton<System.Data.IDbConnection>(new System.Data.SqlClient.SqlConnection(connectionString));
+            services.AddSingleton<Dados.IConexaoDados, Dados.ConexaoDados>();
+            services.AddSingleton<IProdutoRepositorio, ProdutoRepositorio>();
 
-            //services.AddDbContext<EstoqueContext>(options => options.UseSqlServer(connectionStringWithToken));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
