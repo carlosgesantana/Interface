@@ -70,7 +70,8 @@ function PesquisarProduto() {
                 data: data,
                 columns: columns,
                 rowId: 'id',
-                "searching": false
+                "searching": false,
+                select: { style: 'os' }
             });
 
         },

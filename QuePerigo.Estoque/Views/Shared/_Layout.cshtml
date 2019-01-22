@@ -12,7 +12,8 @@
 
     <environment include="Development, Production">
         <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
-        @*<link rel="stylesheet" href="~/lib/DataTables-1.10.18/css/dataTables.bootstrap.min.css" />*@
+        @*<link rel="stylesheet" href="~/lib/DataTables-1.10.18/css/jquery.dataTables.min.css" />*@
+        <link rel="stylesheet" href="~/lib/DataTables-1.10.18/css/select.dataTables.min.css"/>
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
 
@@ -100,6 +101,7 @@
         <script src="~/lib/bootstrap/js/bootstrap.js"></script>
         <script src="~/lib/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
         <script src="~/lib/DataTables-1.10.18/js/dataTables.bootstrap.min.js"></script>
+        <script src="~/lib/DataTables-1.10.18/js/dataTables.select.min.js"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)

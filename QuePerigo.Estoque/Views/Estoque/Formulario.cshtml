@@ -5,8 +5,48 @@
         <form action="Cadastrar" method="post">
 
             <div class="form-group">
+                <label for="TipoItem">Tipo do Item</label>
+                <select class="form-control" name="Produto.TipoItem">
+
+                    @foreach (KeyValuePair<int, string> tipo in ViewBag.Tipos)
+                    {
+                        <option value="@tipo.Key" @(tipo.Equals(Model.TipoItem) ? "selected" : "" )>@tipo.Value</option>
+                    }
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Condicao">Condição</label>
+                <select class="form-control" name="Produto.Condicao">
+
+                    @foreach (KeyValuePair<int, string> condicao in ViewBag.Condicoes)
+                    {
+                        <option value="@condicao.Key" @(condicao.Equals(Model.Condicao) ? "selected" : "" )>@condicao.Value</option>
+                    }
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Tipo de Produção</label><br />
+                <input type="radio" name="Produto.TipoProducao" value="Terceiros" @(string.IsNullOrEmpty(Model.TipoProducao) ? "checked" : (Model.TipoProducao.Equals("Terceiros") ? "checked" : "")) /> Terceiros
+                <input type="radio" name="Produto.TipoProducao" value="Propria" @(string.IsNullOrEmpty(Model.TipoProducao) ? "" : (Model.TipoProducao.Equals("Propria") ? "checked" : "")) /> Própria
+            </div>
+
+            <div class="form-group">
+                <label for="IdProduto">Id</label>
+                <input id="IdProduto" class="form-control" type="text" name="Produto.Id" value="@Model.Id" placeholder="Digite o ID do produto sem o fornecedor..Ex. 1234" />
+            </div>
+
+            <div class="form-group">
                 <label for="IdBling">Id Bling</label>
                 <input id="IdBling" class="form-control" type="text" name="Produto.IdBling" value="@Model.IdBling" />
+            </div>
+
+            <div class="form-group">
+                <label for="Descricao">Descrição</label>
+                <input id="Descricao" class="form-control" type="text" name="Produto.Descricao" value="@Model.Descricao" />
             </div>
 
             <div class="form-group">
@@ -15,8 +55,20 @@
             </div>
 
             <div class="form-group">
-                <label for="DescricaoCompleta">Descrição Completa</label>
-                <input id="DescricaoCompleta" class="form-control" type="text" name="Produto.DescricaoCompleta" value="@Model.DescricaoCompleta" />
+                <label for="DescricaoComplementar">Descrição Complementar</label>
+                <input id="DescricaoComplementar" class="form-control" type="text" name="Produto.DescricaoComplementar" value="@Model.DescricaoComplementar" />
+            </div>
+
+            <div class="form-group">
+                <label for="Unidade">Unidade</label>
+                <select class="form-control" name="Produto.Unidade">
+
+                    @foreach (KeyValuePair<int, string> unidade in ViewBag.Unidades)
+                    {
+                        <option value="@unidade.Key" @(unidade.Equals(Model.Unidade) ? "selected" : "" )>@unidade.Value</option>
+                    }
+
+                </select>
             </div>
 
             <div class="form-group">
@@ -27,14 +79,41 @@
 
                     @foreach (Fornecedor fornecedor in ViewBag.Fornecedores)
                     {
-                        <option value="@fornecedor.Id" selected="@fornecedor.Equals(Model.Fornecedor)">@fornecedor.Nome</option>
+                        <option value="@fornecedor.Id" @(fornecedor.Equals(Model.Fornecedor) ? "selected" : "" )>@fornecedor.Nome</option>
                     }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Localizacao">Localização</label>
+                <select class="form-control" name="Produto.Localizacao.Id">
+
+                    @if (!string.IsNullOrEmpty(Model.Id))
+                    {
+                        @foreach (Localizacao localizacao in Model.Fornecedor.Localizacoes)
+                        {
+                            <option value="@localizacao.Id" @(localizacao.Equals(Model.Localizacao) ? "selected" : "" )>@localizacao.Nome</option>
+                        }
+                    }
+
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="Quantidade">Quantidade</label>
                 <input id="Quantidade" class="form-control" type="number" name="Produto.Quantidade" value="" />
+            </div>
+
+            <div class="form-group">
+                <label for="Situacao">Situação</label>
+                <select class="form-control" name="Produto.Situacao">
+
+                    @foreach (KeyValuePair<int, string> situacao in ViewBag.Situacoes)
+                    {
+                        <option value="@situacao.Key" @(situacao.Equals(Model.Situacao) ? "selected" : "" )>@situacao.Value</option>
+                    }
+
+                </select>
             </div>
 
             <div class="form-group">
@@ -58,8 +137,55 @@
             </div>
 
             <div class="form-group">
-                <label for="IsNacional">Produto Nacional?</label>
-                <input id="IsNacional" type="checkbox" name="Produto.IsNacional" />
+                <label for="Origem">Origem</label>
+                <select class="form-control" name="Produto.Origem">
+
+                    @foreach (KeyValuePair<int, string> origem in ViewBag.Origens)
+                    {
+                        <option value="@origem.Key" @(origem.Equals(Model.Origem) ? "selected" : "" )>@origem.Value</option>
+                    }
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="CEST">CEST</label>
+                <input id="CEST" class="form-control" type="text" name="Produto.CEST" />
+            </div>
+
+            <div class="form-group">
+                <label for="PesoLiquido">Peso Líquido</label>
+                <input id="PesoLiquido" class="form-control" type="text" name="Produto.Especificacao.PesoLiquido" value="@Model.Especificacao.PesoLiquido" />
+            </div>
+
+            <div class="form-group">
+                <label for="PesoBruto">Peso Bruto</label>
+                <input id="PesoBruto" class="form-control" type="text" name="Produto.Especificacao.PesoBruto" value="@Model.Especificacao.PesoBruto" />
+            </div>
+
+            <div class="form-group">
+                <label for="Largura">Largura</label>
+                <input id="Largura" class="form-control" type="text" name="Produto.Especificacao.Largura" value="@Model.Especificacao.Largura" />
+            </div>
+
+            <div class="form-group">
+                <label for="Altura">Altura</label>
+                <input id="Altura" class="form-control" type="text" name="Produto.Especificacao.Altura" value="@Model.Especificacao.Altura" />
+            </div>
+
+            <div class="form-group">
+                <label for="Profundidade">Profundidade</label>
+                <input id="Profundidade" class="form-control" type="text" name="Produto.Especificacao.Profundidade" value="@Model.Especificacao.Profundidade" />
+            </div>
+
+            <div class="form-group">
+                <label for="DataValidade">Data Validade</label>
+                <input id="DataValidade" class="form-control" type="date" name="Produto.Especificacao.DataValidade" value="@Model.Especificacao.DataValidade" />
+            </div>
+
+            <div class="form-group">
+                <label for="Garantia">Garantia</label>
+                <input id="Garantia" class="form-control" type="number" name="Produto.Especificacao.Garantia" value="@Model.Especificacao.Garantia" />
             </div>
 
             <div class="form-group">

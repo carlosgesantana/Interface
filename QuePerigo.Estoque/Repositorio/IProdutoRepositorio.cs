@@ -6,5 +6,6 @@ namespace QuePerigo.Repositorio
     public interface IProdutoRepositorio
     {
         List<Produto> GetProdutos(string descricaoCurta);
+        void Salvar(Produto produto);
     }
 }
