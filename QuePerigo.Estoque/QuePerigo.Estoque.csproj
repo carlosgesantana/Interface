@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <UserSecretsId>5de8f180-bd55-4fdb-9222-c26a9edaee0b</UserSecretsId>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\QuePerigo.Dados\QuePerigo.Dados.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Reference Include="Null.Token">
+      <HintPath>..\..\..\..\..\..\..\Documents\Visual Studio 2017\Projects\Null.Token.Conexao\Null.Token.Conexao\bin\Release\netcoreapp2.2\Null.Token.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

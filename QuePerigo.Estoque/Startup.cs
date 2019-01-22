@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,10 +6,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Null.Token;
+using QuePerigo.Estoque.Models;
+using QuePerigo.Repositorio;
 
-namespace Interface
+namespace QuePerigo.Estoque
 {
     public class Startup
     {
@@ -32,6 +36,15 @@ namespace Interface
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            string connectionStringWithToken = Configuration.GetConnectionString("Default");
+            string connectionString = Conexao.GetConnectionString(connectionStringWithToken);
+
+            services.AddSingleton<System.Data.IDbConnection>(new System.Data.SqlClient.SqlConnection(connectionString));
+            services.AddSingleton<Dados.IConexaoDados, Dados.ConexaoDados>();
+            services.AddSingleton<IProdutoRepositorio, ProdutoRepositorio>();
+            services.AddSingleton<IFornecedorRepositorio, FornecedorRepositorio>();
+            services.AddSingleton<IDominioFactory, DominioFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,13 +56,18 @@ namespace Interface
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler(Configuration.GetSection("ErrorPage").Value);
             }
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }
