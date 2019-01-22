@@ -20,16 +20,29 @@
 
 <div class="divider"></div>
 
-<div id="div-produto">
-    
+<div class="panel panel-default">
+    <div class="panel-body">
+
+        <div id="div-conteudo">
+
+            <!--Todo o conteúdo de estoque será exibido dentro dessa DIV -->
+
+        </div>
+
+    </div>
 </div>
 
 @section Scripts
-{
+    {
 
-<script>
-    var urlFormulario = "@Url.Action("Formulario")";
-</script>
-<script src="~/js/estoque.js"></script>
+    <script>
+
+        var urlFormulario = "@Url.Action("Formulario")";
+        var urlResultados = "@Url.Action("Resultados")";
+
+    </script>
+
+    <script src="~/js/util.js"></script>
+    <script src="~/js/estoque.js"></script>
 
 }
