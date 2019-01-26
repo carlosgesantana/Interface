@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using QuePerigo.Dados;
 using QuePerigo.Estoque.Models;
+using QuePerigo.Estoque.Utilidades;
 using QuePerigo.Repositorio;
 
 namespace QuePerigo.Estoque.Controllers
@@ -14,13 +15,22 @@ namespace QuePerigo.Estoque.Controllers
     {
         private readonly IProdutoRepositorio produtoRepositorio;
         private readonly IFornecedorRepositorio fornecedorRepositorio;
+        private readonly ILocalizacaoRepositorio localizacaoRepositorio;
         private readonly IDominioFactory dominioFactory;
+        private readonly IModelInfo modelInfo;
 
-        public EstoqueController(IProdutoRepositorio produtoRepositorio, IFornecedorRepositorio fornecedorRepositorio, IDominioFactory dominioFactory)
+        public EstoqueController(
+            IProdutoRepositorio produtoRepositorio, 
+            IFornecedorRepositorio fornecedorRepositorio,
+            ILocalizacaoRepositorio localizacaoRepositorio,
+            IDominioFactory dominioFactory, 
+            IModelInfo modelInfo)
         {
             this.produtoRepositorio = produtoRepositorio;
             this.fornecedorRepositorio = fornecedorRepositorio;
+            this.localizacaoRepositorio = localizacaoRepositorio;
             this.dominioFactory = dominioFactory;
+            this.modelInfo = modelInfo;
         }
 
         public IActionResult Default()
@@ -33,13 +43,17 @@ namespace QuePerigo.Estoque.Controllers
             Produto produto = new Produto();
 
             List<Fornecedor> fornecedores = fornecedorRepositorio.GetFornecedores();
-            ViewBag.Fornecedores = fornecedores;
 
+            if (Check<Fornecedor>.IsNullOrEmpty(fornecedores))
+                throw new FornecedorException("Nenhum fornecedor está cadastrado!");
+
+            ViewBag.Fornecedores = fornecedores;
             ViewBag.Unidades = dominioFactory.GetDominio("Unidade");
             ViewBag.Situacoes = dominioFactory.GetDominio("Situacao");
             ViewBag.Origens = dominioFactory.GetDominio("Origem");
             ViewBag.Tipos = dominioFactory.GetDominio("TipoItem");
             ViewBag.Condicoes = dominioFactory.GetDominio("Condicao");
+            ViewBag.ModelInfo = modelInfo.GetInfo("Produto");
 
             return PartialView(produto);
         }
@@ -77,13 +91,22 @@ namespace QuePerigo.Estoque.Controllers
         {
             produto.Fornecedor = fornecedorRepositorio.GetFornecedorFromId(produto.Fornecedor.Id);
 
-            produto.Id = produto.Id + produto.Fornecedor.Nome;
+            produto.Id = produto.Id + produto.Fornecedor.Nome.Substring(0, 3);
 
-            produto.Preco = 1.3M * produto.Custo;
+            produto.Preco = 1.5M * produto.Custo;
 
             produtoRepositorio.Salvar(produto);
 
             return View(produto);
+        }
+
+        public JsonResult GetLocalizacoes(int idFornecedor)
+        {
+            List<Localizacao> localizacoes = localizacaoRepositorio.GetLocalizacoes(idFornecedor);
+
+            JsonResult jsonResult = Json(localizacoes);
+
+            return jsonResult;
         }
 
     }

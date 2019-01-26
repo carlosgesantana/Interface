@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ namespace QuePerigo.Estoque.Models
         public Produto()
         {
             this.Especificacao = new Especificacao();
+
         }
 
         public string Id { get; set; } //Tam: 25, Não Nulo
@@ -20,7 +22,7 @@ namespace QuePerigo.Estoque.Models
         public Especificacao Especificacao { get; set; } //Não Nulo, Padrão: 1
         public string IdBling { get; set; } //Tam: 10, Nulo
         public string Unidade { get; set; } //Tam: 2, Não Nulo, Padrão: 'UN'
-        public string NCM { get; set; } //Tam: 50, Nulo
+        public string NCM { get; set; } //Tam: 15, Nulo
         public int Origem { get; set; } //Não Nulo, Padrão: 0
         public decimal Preco { get; set; } //Tam: 18;2, Não Nulo
         public decimal ValorIPIFixo { get; set; } //Tam: 18;2, Nulo
@@ -33,6 +35,7 @@ namespace QuePerigo.Estoque.Models
         public int QuantidadeMaxima { get; set; } //Nulo
         public string CodigoBarra { get; set; } //Tam: 50, Nulo
         public string CodigoBarraEmbalagem { get; set; } //Tam: 50, Nulo
+        public string ClassificaoFiscal { get; set; } //Tam: 15, Nulo
         public string DescricaoComplementar { get; set; } //Tam: 500, Não Nulo
         public string TipoProducao { get; set; } //Tam: 1, Não Nulo, Padrão: T
         public string TipoItem { get; set; } //Tam: 40, Não Nulo, Padrão: 'Mercadoria para revenda'
@@ -42,6 +45,5 @@ namespace QuePerigo.Estoque.Models
         public int CrossDocking { get; set; } //Nulo
         public List<Imagem> Imagens { get; set; } //Nulo
         public string Condicao { get; set; } //Tam: 10, Não Nulo, Padrão: 'Novo'
-
     }
 }

@@ -41,10 +41,13 @@ namespace QuePerigo.Estoque
             string connectionString = Conexao.GetConnectionString(connectionStringWithToken);
 
             services.AddSingleton<System.Data.IDbConnection>(new System.Data.SqlClient.SqlConnection(connectionString));
+
             services.AddSingleton<Dados.IConexaoDados, Dados.ConexaoDados>();
             services.AddSingleton<IProdutoRepositorio, ProdutoRepositorio>();
             services.AddSingleton<IFornecedorRepositorio, FornecedorRepositorio>();
+            services.AddSingleton<ILocalizacaoRepositorio, LocalizacaoRepositorio>();
             services.AddSingleton<IDominioFactory, DominioFactory>();
+            services.AddSingleton<IModelInfo, ModelInfo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -20,16 +20,13 @@ namespace QuePerigo.Dados
         {
             connection.Open();
 
-            dbCommand = ConfigurarCommand(dbCommand, dbParameterList);
-
             DataTable dataTable = new DataTable();
 
-            using (IDataReader dataReader = dbCommand.ExecuteReader())
+            using (dbCommand = ConfigurarCommand(dbCommand, dbParameterList))
             {
+                IDataReader dataReader = dbCommand.ExecuteReader();
                 dataTable.Load(dataReader);
             }
-
-            dbCommand.Dispose();
 
             connection.Close();
 
@@ -40,11 +37,10 @@ namespace QuePerigo.Dados
         {
             connection.Open();
 
-            dbCommand = ConfigurarCommand(dbCommand, dbParameterList);
-
-            dbCommand.ExecuteNonQuery();
-
-            dbCommand.Dispose();
+            using (dbCommand = ConfigurarCommand(dbCommand, dbParameterList))
+            {
+                dbCommand.ExecuteNonQuery();
+            }
 
             connection.Close();
         }

@@ -22,10 +22,10 @@ namespace QuePerigo.Repositorio
 
             Fornecedor fornecedor = null;
 
-            SqlCommand sqlCommand = new SqlCommand("SELECT * FROM TBL_Fornecedores WHERE ID_FORNECEDOR = @ID_FORNECEDOR");
+            SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Fornecedores WHERE id_fornecedor = @id_fornecedor");
             List<DbParameter> dbParameterList = new List<DbParameter>();
 
-            dbParameterList.Add(new SqlParameter("@ID_FORNECEDOR", idFornecedor));
+            dbParameterList.Add(new SqlParameter("@id_fornecedor", idFornecedor));
 
             DataTable dataTable = bdEstoque.Consultar(sqlCommand, dbParameterList);
 
@@ -36,8 +36,8 @@ namespace QuePerigo.Repositorio
 
                 fornecedor = new Fornecedor()
                 {
-                    Id = (int)row["ID_FORNECEDOR"],
-                    Nome = row["NOME"] as string
+                    Id = (int)row["id_fornecedor"],
+                    Nome = row["nome"] as string
                 };
 
 
@@ -50,7 +50,7 @@ namespace QuePerigo.Repositorio
         {
             List<Fornecedor> fornecedores = new List<Fornecedor>();
 
-            SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Fornecedores");
+            DbCommand sqlCommand = new SqlCommand("SELECT * FROM Fornecedores");
 
             DataTable dataTable = bdEstoque.Consultar(sqlCommand, null);
 

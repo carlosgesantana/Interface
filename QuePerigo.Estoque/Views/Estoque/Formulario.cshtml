@@ -1,4 +1,5 @@
 ﻿@model Produto
+@using QuePerigo.Estoque.Utilidades
 
 <div class="row">
     <div class="col-md-offset-3 col-md-6">
@@ -36,27 +37,27 @@
 
             <div class="form-group">
                 <label for="IdProduto">Id</label>
-                <input id="IdProduto" class="form-control" type="text" name="Produto.Id" value="@Model.Id" placeholder="Digite o ID do produto sem o fornecedor..Ex. 1234" />
+                <input id="IdProduto" class="form-control" type="text" name="Produto.Id" value="@Model.Id" placeholder="Digite o ID do produto sem o fornecedor..Ex. 1234" maxlength="@ViewBag.ModelInfo["Id"].MaxLength" />
             </div>
 
             <div class="form-group">
                 <label for="IdBling">Id Bling</label>
-                <input id="IdBling" class="form-control" type="text" name="Produto.IdBling" value="@Model.IdBling" />
+                <input id="IdBling" class="form-control" type="text" name="Produto.IdBling" value="@Model.IdBling" maxlength="@ViewBag.ModelInfo["IdBling"].MaxLength" />
             </div>
 
             <div class="form-group">
                 <label for="Descricao">Descrição</label>
-                <input id="Descricao" class="form-control" type="text" name="Produto.Descricao" value="@Model.Descricao" />
+                <input id="Descricao" class="form-control" type="text" name="Produto.Descricao" value="@Model.Descricao" maxlength="@ViewBag.ModelInfo["Descricao"].MaxLength" />
             </div>
 
             <div class="form-group">
                 <label for="DescricaoCurta">Descrição Curta</label>
-                <input id="DescricaoCurta" class="form-control" type="text" name="Produto.DescricaoCurta" value="@Model.DescricaoCurta" />
+                <input id="DescricaoCurta" class="form-control" type="text" name="Produto.DescricaoCurta" value="@Model.DescricaoCurta" maxlength="@ViewBag.ModelInfo["DescricaoCurta"].MaxLength" />
             </div>
 
             <div class="form-group">
                 <label for="DescricaoComplementar">Descrição Complementar</label>
-                <input id="DescricaoComplementar" class="form-control" type="text" name="Produto.DescricaoComplementar" value="@Model.DescricaoComplementar" />
+                <input id="DescricaoComplementar" class="form-control" type="text" name="Produto.DescricaoComplementar" value="@Model.DescricaoComplementar" maxlength="@ViewBag.ModelInfo["DescricaoComplementar"].MaxLength" />
             </div>
 
             <div class="form-group">
@@ -73,7 +74,7 @@
 
             <div class="form-group">
                 <label for="Fornecedor">Fornecedor</label>
-                <select class="form-control" name="Produto.Fornecedor.Id">
+                <select class="form-control" name="Produto.Fornecedor.Id" id="fornecedor-list">
 
                     <option value="0" selected="selected"></option>
 
@@ -86,13 +87,13 @@
 
             <div class="form-group">
                 <label for="Localizacao">Localização</label>
-                <select class="form-control" name="Produto.Localizacao.Id">
+                <select class="form-control" name="Produto.Localizacao.Id" id="localizacao-list">
 
                     @if (!string.IsNullOrEmpty(Model.Id))
                     {
                         @foreach (Localizacao localizacao in Model.Fornecedor.Localizacoes)
                         {
-                            <option value="@localizacao.Id" @(localizacao.Equals(Model.Localizacao) ? "selected" : "" )>@localizacao.Nome</option>
+                            <option value="@localizacao.Id" @(localizacao.Equals(Model.Localizacao) ? "selected" : "" )>@(localizacao.Cidade + localizacao.Estado)</option>
                         }
                     }
 
@@ -101,7 +102,7 @@
 
             <div class="form-group">
                 <label for="Quantidade">Quantidade</label>
-                <input id="Quantidade" class="form-control" type="number" name="Produto.Quantidade" value="" />
+                <input id="Quantidade" class="form-control" type="number" name="Produto.Quantidade" value="" min="0" />
             </div>
 
             <div class="form-group">
@@ -118,22 +119,22 @@
 
             <div class="form-group">
                 <label for="Custo">Custo</label>
-                <input id="Custo" class="form-control" type="text" name="Produto.Custo" />
-            </div>
-
-            <div class="form-group">
-                <label for="CodigoBarraEmbalagem">Código de Barra da Embalagem</label>
-                <input id="CodigoBarraEmbalagem" class="form-control" type="text" name="Produto.CodigoBarraEmbalagem" value="" />
+                <input id="Custo" class="form-control" type="text" name="Produto.Custo" maxlength="@ViewBag.ModelInfo["Custo"].MaxLength" />
             </div>
 
             <div class="form-group">
                 <label for="CodigoBarra">Código de Barra</label>
-                <input id="CodigoBarra" class="form-control" type="text" name="Produto.CodigoBarra" value="" />
+                <input id="CodigoBarra" class="form-control" type="text" name="Produto.CodigoBarra" value="" maxlength="@ViewBag.ModelInfo["CodigoBarra"].MaxLength" />
+            </div>
+
+            <div class="form-group">
+                <label for="CodigoBarraEmbalagem">Código de Barra da Embalagem</label>
+                <input id="CodigoBarraEmbalagem" class="form-control" type="text" name="Produto.CodigoBarraEmbalagem" value="" maxlength="@ViewBag.ModelInfo["CodigoBarraEmbalagem"].MaxLength" />
             </div>
 
             <div class="form-group">
                 <label for="NCM">Class. Fiscal</label>
-                <input id="NCM" class="form-control" type="text" name="Produto.NCM" />
+                <input id="NCM" class="form-control" type="text" name="Produto.NCM" maxlength="@ViewBag.ModelInfo["NCM"].MaxLength" />
             </div>
 
             <div class="form-group">
@@ -150,7 +151,7 @@
 
             <div class="form-group">
                 <label for="CEST">CEST</label>
-                <input id="CEST" class="form-control" type="text" name="Produto.CEST" />
+                <input id="CEST" class="form-control" type="text" name="Produto.CEST" maxlength="@ViewBag.ModelInfo["CEST"].MaxLength" />
             </div>
 
             <div class="form-group">
@@ -180,7 +181,7 @@
 
             <div class="form-group">
                 <label for="DataValidade">Data Validade</label>
-                <input id="DataValidade" class="form-control" type="date" name="Produto.Especificacao.DataValidade" value="@Model.Especificacao.DataValidade" />
+                <input id="DataValidade" class="form-control" type="date" name="Produto.Especificacao.DataValidade" value="@Model.Especificacao.DataValidade.ToEnglishDateString()" />
             </div>
 
             <div class="form-group">
@@ -190,7 +191,7 @@
 
             <div class="form-group">
                 <label for="Observacoes">Observações</label>
-                <textarea class="form-control" id="Observacoes" type="text" name="Produto.Observacoes" />
+                <textarea class="form-control" id="Observacoes" type="text" name="Produto.Observacoes" maxlength="@ViewBag.ModelInfo["Observacoes"].MaxLength" />
             </div>
 
             <div class="form-group">
@@ -200,3 +201,17 @@
         </form>
     </div>
 </div>
+
+@section Scripts
+{
+    <script>
+
+        $('#fornecedor-list').on('change', function (e) {
+
+            
+
+
+        });
+
+    </script>
+}

@@ -83,6 +83,27 @@ function PesquisarProduto() {
 
 }
 
+function FiltrarLocalizacoes() {
+
+    $.ajax({
+        url: urlLocalizacoes,
+        data: { idFornecedor: $('#fornecedor-list').val() },
+        type: 'POST',
+        success: function (data) {
+
+            var localizacoes = data;
+
+            for (var local in localizacoes) {
+                var option = getOptionFromObject(local);
+            }
+
+        },
+        error: function (data) {
+        }
+    });
+
+}
+
 function getTabelaResponsiva() {
 
     //Tabela responsiva - Redimensiona a tabela automaticamente em telas menores que 768px
@@ -167,4 +188,10 @@ function obterValorComplexo(campo, obj) {
     }
 
     return obj;
+}
+
+function getOptionFromObject(local) {
+
+    9
+
 }

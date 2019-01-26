@@ -22,9 +22,9 @@ namespace QuePerigo.Repositorio
 
             if (!string.IsNullOrEmpty(descricaoCurta))
             {
-                SqlCommand dbCommand = new SqlCommand("SELECT ID_PROD, DESC_CURTA, ID_FORNECEDOR, CUSTO, PRECO, ESTOQUE FROM TBL_Produtos WHERE DESC_CURTA LIKE @DESC_CURTA");
+                SqlCommand dbCommand = new SqlCommand("SELECT id_produto, descricao_curta, id_fornecedor, custo, preco, quantidade FROM Produtos WHERE descricao_curta LIKE @descricao_curta");
 
-                dbCommand.Parameters.AddWithValue("@DESC_CURTA", "%" + descricaoCurta + "%");
+                dbCommand.Parameters.AddWithValue("@descricao_curta", "%" + descricaoCurta + "%");
 
                 DataTable dataTable = bdEstoque.Consultar(dbCommand, null);
 
@@ -34,12 +34,12 @@ namespace QuePerigo.Repositorio
 
                     Produto produto = new Produto()
                     {
-                        Id = row["ID_PROD"] as string,
-                        DescricaoCurta = row["DESC_CURTA"] as string,
-                        Fornecedor = new Fornecedor() { Id = (int)row["ID_FORNECEDOR"] },
-                        Custo = (decimal)row["CUSTO"],
-                        Preco = (decimal)row["PRECO"],
-                        Quantidade = (int)row["ESTOQUE"]
+                        Id = row["id_produto"] as string,
+                        DescricaoCurta = row["descricao_curta"] as string,
+                        Fornecedor = new Fornecedor() { Id = (int)row["id_fornecedor"] },
+                        Custo = (decimal)row["custo"],
+                        Preco = (decimal)row["preco"],
+                        Quantidade = (int)row["quantidade"]
                     };
                     produtos.Add(produto);
                 }
@@ -51,31 +51,39 @@ namespace QuePerigo.Repositorio
         public void Salvar(Produto produto)
         {
             DbCommand command = new SqlCommand(
-                "INSERT INTO TBL_Produtos VALUES " +
+                "INSERT INTO Produtos VALUES " +
                 "(" +
-                    "@ID_PROD, @ID_BLING, @ID_FORNECEDOR, @NCM, " +
-                    "@OBS, @ORIGEM_NAC, @CUSTO, @PRECO, @STATUS_PROD, " +
-                    "@ESTOQUE, @GTIN_EAN_EMB, @GTIN_EAN, @CEST, @DESC_CURTA, @DESC_COMPLETA" +
+                    "@tipo_item, @condicao, @tipo_producao, @id_produto, " +
+                    "@id_bling, @descricao, @descricao_curta, @descricao_complementar, " +
+                    "@unidade, @id_fornecedor, @id_localizacao, @quantidade, " +
+                    "@situacao, @custo, @preco, @codigo_barra, @codigo_barra_embalagem" +
+                    "@ncm, @origem, @cest, @obs" +
                 ")");
 
             List<DbParameter> sqlParameters = new List<DbParameter>();
 
-            sqlParameters.Add(new SqlParameter("@ID_PROD", produto.Id));
-            sqlParameters.Add(new SqlParameter("@ID_BLING", produto.IdBling ?? (object)DBNull.Value) { IsNullable = true });
-            sqlParameters.Add(new SqlParameter("@ID_FORNECEDOR", produto.Fornecedor.Id));
-            sqlParameters.Add(new SqlParameter("@NCM", produto.NCM ?? (object)DBNull.Value) { IsNullable = true });
-            sqlParameters.Add(new SqlParameter("@OBS", produto.Observacoes ?? (object)DBNull.Value) { IsNullable = true });
-            sqlParameters.Add(new SqlParameter("@ORIGEM_NAC", produto.Origem));
-            sqlParameters.Add(new SqlParameter("@CUSTO", produto.Custo));
-            sqlParameters.Add(new SqlParameter("@PRECO", produto.Preco));
-            sqlParameters.Add(new SqlParameter("@STATUS_PROD", produto.Situacao));
-            sqlParameters.Add(new SqlParameter("@ESTOQUE", produto.Quantidade));
-            sqlParameters.Add(new SqlParameter("@GTIN_EAN_EMB", produto.CodigoBarraEmbalagem ?? (object)DBNull.Value) { IsNullable = true });
-            sqlParameters.Add(new SqlParameter("@GTIN_EAN", produto.CodigoBarra ?? (object)DBNull.Value) { IsNullable = true });
-            sqlParameters.Add(new SqlParameter("@CEST", produto.CEST ?? (object)DBNull.Value) { IsNullable = true });
-            sqlParameters.Add(new SqlParameter("@DESC_CURTA", produto.DescricaoCurta));
-            sqlParameters.Add(new SqlParameter("@DESC_COMPLETA", produto.DescricaoComplementar));
-
+            sqlParameters.Add(new SqlParameter("@tipo_item", produto.TipoItem));
+            sqlParameters.Add(new SqlParameter("@condicao", produto.Condicao));
+            sqlParameters.Add(new SqlParameter("@tipo_producao", produto.TipoProducao));
+            sqlParameters.Add(new SqlParameter("@id_produto", produto.Id));
+            sqlParameters.Add(new SqlParameter("@id_bling", produto.IdBling ?? (object)DBNull.Value) { IsNullable = true });
+            sqlParameters.Add(new SqlParameter("@descricao", produto.Descricao));
+            sqlParameters.Add(new SqlParameter("@descricao_curta", produto.DescricaoCurta));
+            sqlParameters.Add(new SqlParameter("@descricao_complementar", produto.DescricaoComplementar));
+            sqlParameters.Add(new SqlParameter("@unidade", produto.Unidade));
+            sqlParameters.Add(new SqlParameter("@id_fornecedor", produto.Fornecedor.Id));
+            sqlParameters.Add(new SqlParameter("@id_localizacao", produto.Localizacao.Id));
+            sqlParameters.Add(new SqlParameter("@quantidade", produto.Quantidade));
+            sqlParameters.Add(new SqlParameter("@situacao", produto.Situacao));
+            sqlParameters.Add(new SqlParameter("@custo", produto.Custo));
+            sqlParameters.Add(new SqlParameter("@preco", produto.Preco));
+            sqlParameters.Add(new SqlParameter("@codigo_barra", produto.CodigoBarra ?? (object)DBNull.Value) { IsNullable = true });
+            sqlParameters.Add(new SqlParameter("@codigo_barra_embalagem", produto.CodigoBarraEmbalagem ?? (object)DBNull.Value) { IsNullable = true });
+            sqlParameters.Add(new SqlParameter("@ncm", produto.NCM ?? (object)DBNull.Value) { IsNullable = true });
+            sqlParameters.Add(new SqlParameter("@origem", produto.Origem));
+            sqlParameters.Add(new SqlParameter("@cest", produto.CEST ?? (object)DBNull.Value) { IsNullable = true });
+            sqlParameters.Add(new SqlParameter("@obs", produto.Observacoes ?? (object)DBNull.Value) { IsNullable = true });
+            
             bdEstoque.Executar(command, sqlParameters);
         }
     }

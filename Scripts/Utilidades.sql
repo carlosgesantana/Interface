@@ -1,0 +1,8 @@
+CREATE LOGIN qpuser WITH PASSWORD = 'idea_lamp_00';
+
+CREATE USER qpuser_db FOR LOGIN qpuser
+
+GRANT SELECT, INSERT, UPDATE ON OBJECT::Produtos TO qpuser_db; 
+go
+
+ALTER TABLE Produtos ALTER COLUMN NCM VARCHAR(15)
